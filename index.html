@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AISDST Executive Dashboard | Global AI, Data Science & Statistics Job Market</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              violet: '#8b5cf6',
+              amber: '#f59e0b',
+              rose: '#f43f5e'
+            },
+            surface: {
+              darkest: '#090d16',
+              dark: '#0f172a',
+              card: '#1e293b',
+              cardHover: '#283548',
+              border: '#334155'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    [contenteditable="true"]:hover {
+      outline: 1px dashed #38bdf8;
+      border-radius: 4px;
+      cursor: text;
+    }
+    [contenteditable="true"]:focus {
+      outline: 2px solid #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 4px;
+    }
+    .badge-glow {
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Top Sticky Header -->
+  <header class="sticky top-0 z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-surface-border px-6 py-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <span class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-sm px-3 py-1.5 rounded-lg tracking-wider badge-glow">AISDST</span>
+        <div>
+          <h1 contenteditable="true" class="text-lg md:text-xl font-bold tracking-tight text-white hover:text-sky-300 transition-colors">
+            AI, Data Science & Statistics Global Job Market Intelligence
+          </h1>
+          <p contenteditable="true" class="text-xs text-slate-400">
+            Live Open Data Benchmark • Click any text with ✎ to edit dynamically
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-full font-medium flex items-center">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span> Open Data Live Context
+        </span>
+        <button onclick="resetEdits()" class="text-xs bg-surface-card hover:bg-surface-cardHover text-slate-300 border border-surface-border px-3 py-1.5 rounded-lg transition-colors">
+          Reset Text
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 md:px-6 py-8 space-y-8">
+
+    <!-- Role Filter & Search Bar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-card border border-surface-border p-4 rounded-xl">
+      <div class="flex items-center space-x-2">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Filter Field:</span>
+        <div class="flex flex-wrap gap-1.5" id="field-filter-group">
+          <button onclick="setFieldFilter('ALL')" id="btn-ALL" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition">All Fields</button>
+          <button onclick="setFieldFilter('AI')" id="btn-AI" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition">AI</button>
+          <button onclick="setFieldFilter('Data Science')" id="btn-Data Science" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition">Data Science</button>
+          <button onclick="setFieldFilter('Statistics')" id="btn-Statistics" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition">Statistics</button>
+        </div>
+      </div>
+      <div class="text-xs text-slate-400">
+        Active Category: <span id="active-field-label" class="font-bold text-sky-400">All Fields (Consolidated)</span>
+      </div>
+    </div>
+
+    <!-- Top KPI Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Median Global Salary</p>
+        <h3 contenteditable="true" id="kpi-salary" class="text-3xl font-extrabold text-white mt-1">$124,500</h3>
+        <p contenteditable="true" class="text-xs text-emerald-400 mt-2 flex items-center font-medium">
+          ▲ +14.2% YoY growth across 2024-2025
+        </p>
+      </div>
+
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Fastest Growing Competency</p>
+        <h3 contenteditable="true" id="kpi-skill" class="text-3xl font-extrabold text-white mt-1">Agentic AI</h3>
+        <p contenteditable="true" class="text-xs text-purple-400 mt-2 font-medium">
+          ▲ +84.5% demand increase in requisitions
+        </p>
+      </div>
+
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Top Global Hiring Hub</p>
+        <h3 contenteditable="true" class="text-3xl font-extrabold text-white mt-1">United States / SG</h3>
+        <p contenteditable="true" class="text-xs text-teal-400 mt-2 font-medium">
+          50% aggregate requisition share
+        </p>
+      </div>
+
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Open Data Sources</p>
+        <h3 contenteditable="true" class="text-3xl font-extrabold text-white mt-1">5 Catalogs</h3>
+        <p contenteditable="true" class="text-xs text-amber-400 mt-2 font-medium">
+          BLS, Kaggle, OECD, WorldBank, HF
+        </p>
+      </div>
+    </div>
+
+    <!-- Charts Row 1: Salary Ranges & Skills Growth -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- Salary Chart -->
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 contenteditable="true" class="text-base font-bold text-white flex items-center">
+              💵 Salary Ranges by Seniority ($USD)
+            </h3>
+            <p contenteditable="true" class="text-xs text-slate-400">Entry, Mid, Senior, and Expert compensation bounds</p>
+          </div>
+          <span class="text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded font-mono">Chart.js</span>
+        </div>
+        <div class="h-72">
+          <canvas id="salaryChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Skills Chart -->
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 contenteditable="true" class="text-base font-bold text-white flex items-center">
+              🚀 Top Required Skills & Growth Rates
+            </h3>
+            <p contenteditable="true" class="text-xs text-slate-400">Market requisition prevalence and YoY velocity</p>
+          </div>
+          <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded font-mono">Growth %</span>
+        </div>
+        <div class="h-72">
+          <canvas id="skillsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row 2: Geography & Open Data References -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Geographic Distribution -->
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5 lg:col-span-1">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 contenteditable="true" class="text-base font-bold text-white">🌍 Hiring Geography Demand</h3>
+            <p contenteditable="true" class="text-xs text-slate-400">Market share by primary country hubs</p>
+          </div>
+        </div>
+        <div class="h-64 flex items-center justify-center">
+          <canvas id="geoChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Open Data Sources Catalog -->
+      <div class="bg-surface-card border border-surface-border rounded-xl p-5 lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 contenteditable="true" class="text-base font-bold text-white">🔗 Open Data Sources & Verification Repositories</h3>
+            <p contenteditable="true" class="text-xs text-slate-400">Dynamic references utilized for baseline metrics validation</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-surface-border text-slate-400 uppercase font-semibold">
+                <th class="py-2.5 px-3">Dataset Source</th>
+                <th class="py-2.5 px-3">Domain</th>
+                <th class="py-2.5 px-3">Coverage</th>
+                <th class="py-2.5 px-3 text-right">Access Link</th>
+              </tr>
+            </thead>
+            <tbody id="open-data-table-body" class="divide-y divide-slate-800">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Executive Notes Section (ContentEditable) -->
+    <div class="bg-surface-card border border-surface-border rounded-xl p-6">
+      <div class="flex items-center justify-between mb-2">
+        <h4 class="text-sm font-bold text-white uppercase tracking-wider text-sky-400">📝 Strategic Curriculum & Policy Takeaways (Editable)</h4>
+        <span class="text-xs text-slate-500">Live Note-taking Pad</span>
+      </div>
+      <div contenteditable="true" class="p-3 bg-surface-dark rounded-lg text-sm text-slate-300 leading-relaxed border border-surface-border">
+        <strong>1. Severe Deficit in Agentic AI & MLOps:</strong> Industry requisitions have surged by +84.5% for Agentic AI workflows and LLM orchestration (LangChain, Vector DBs), yet university curricula remain heavily anchored to foundational tabular algorithms and standalone classification.<br>
+        <strong>2. Employment Velocity vs. Specialization:</strong> Data Science graduates achieve 94.5% employment within 24 months, but AI specialists command an average 26% salary premium across Senior and Expert tiers.<br>
+        <strong>3. Academic Policy Mandate:</strong> Recommendation to integrate mandatory 3-credit cloud orchestration (Docker, Kubernetes, AWS/GCP) in Year 3 across all computer and data curricula.
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Embedded Datasets & Script Engine -->
+  <script>
+    // Embedded Datasets (JSON Structure) as specified in gemini-code-1791193677901.md
+    const DATASETS = {
+      salaries: {
+        "AI": {
+          "Entry": { min: 48000, avg: 65000, max: 85000 },
+          "Mid": { min: 82000, avg: 118000, max: 155000 },
+          "Senior": { min: 145000, avg: 195000, max: 260000 },
+          "Expert": { min: 230000, avg: 315000, max: 420000 }
+        },
+        "Data Science": {
+          "Entry": { min: 42000, avg: 58000, max: 76000 },
+          "Mid": { min: 75000, avg: 105000, max: 140000 },
+          "Senior": { min: 130000, avg: 175000, max: 230000 },
+          "Expert": { min: 210000, avg: 285000, max: 375000 }
+        },
+        "Statistics": {
+          "Entry": { min: 38000, avg: 52000, max: 68000 },
+          "Mid": { min: 65000, avg: 88000, max: 115000 },
+          "Senior": { min: 110000, avg: 148000, max: 195000 },
+          "Expert": { min: 175000, avg: 240000, max: 310000 }
+        }
+      },
+      skills: [
+        { name: "Agentic AI", growth: 84.5, demandPct: 68, field: "AI" },
+        { name: "Python", growth: 22.4, demandPct: 92, field: "All" },
+        { name: "Cloud Infra (AWS/GCP)", growth: 46.0, demandPct: 74, field: "All" },
+        { name: "MLOps & Docker", growth: 62.1, demandPct: 65, field: "AI" },
+        { name: "SQL & Big Data", growth: 18.2, demandPct: 88, field: "Data Science" },
+        { name: "Vector Databases", growth: 78.3, demandPct: 58, field: "AI" },
+        { name: "PyTorch & DL", growth: 38.6, demandPct: 64, field: "AI" },
+        { name: "Statistical Modeling", growth: 14.8, demandPct: 54, field: "Statistics" }
+      ],
+      geography: [
+        { country: "United States", sharePct: 34 },
+        { country: "Singapore", sharePct: 16 },
+        { country: "United Kingdom", sharePct: 14 },
+        { country: "Germany", sharePct: 11 },
+        { country: "Thailand / ASEAN", sharePct: 9 },
+        { country: "Japan", sharePct: 8 },
+        { country: "Others", sharePct: 8 }
+      ],
+      openDataSources: [
+        { name: "U.S. Bureau of Labor Statistics (BLS)", domain: "Data Scientists & Actuaries Occupational Outlook", coverage: "US & Global Macro", url: "https://www.bls.gov/ooh/math/data-scientists.htm" },
+        { name: "Kaggle State of Data Science & Machine Learning", domain: "Annual Global Practitioner Survey & Tools Demand", coverage: "Global (100+ countries)", url: "https://www.kaggle.com/surveys" },
+        { name: "OECD AI Policy Observatory", domain: "AI Labor Market Dynamics & Workforce Preparedness", coverage: "OECD & Partner Economies", url: "https://oecd.ai/en/data-and-analysis" },
+        { name: "Hugging Face Open Datasets", domain: "AI Skills, Models & Practitioner Trends", coverage: "Global Open Source Ecosystem", url: "https://huggingface.co/datasets" },
+        { name: "World Bank Open Data", domain: "Higher Education Enrollment & Tertiary STEM Outcomes", coverage: "Worldwide", url: "https://data.worldbank.org" }
+      ]
+    };
+
+    let activeField = "ALL";
+    let salaryChartInstance = null;
+    let skillsChartInstance = null;
+    let geoChartInstance = null;
+
+    function renderOpenDataTable() {
+      const tbody = document.getElementById("open-data-table-body");
+      tbody.innerHTML = DATASETS.openDataSources.map(s => `
+        <tr class="hover:bg-slate-800/50 transition">
+          <td class="py-2.5 px-3 font-medium text-slate-200">${s.name}</td>
+          <td class="py-2.5 px-3 text-slate-400">${s.domain}</td>
+          <td class="py-2.5 px-3 text-slate-400"><span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">${s.coverage}</span></td>
+          <td class="py-2.5 px-3 text-right">
+            <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline font-mono text-xs">
+              Explore ↗
+            </a>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function initSalaryChart() {
+      const ctx = document.getElementById('salaryChart').getContext('2d');
+      const levels = ["Entry", "Mid", "Senior", "Expert"];
+
+      let datasets = [];
+      if (activeField === "ALL") {
+        const fields = ["AI", "Data Science", "Statistics"];
+        const colors = { "AI": "#38bdf8", "Data Science": "#a855f7", "Statistics": "#10b981" };
+        datasets = fields.map(f => ({
+          label: f,
+          data: levels.map(l => DATASETS.salaries[f][l].avg),
+          backgroundColor: colors[f] + "99",
+          borderColor: colors[f],
+          borderWidth: 2,
+          borderRadius: 6
+        }));
+      } else {
+        const cur = DATASETS.salaries[activeField];
+        datasets = [
+          {
+            label: "Min ($USD)",
+            data: levels.map(l => cur[l].min),
+            backgroundColor: "rgba(100, 116, 139, 0.4)",
+            borderColor: "#64748b",
+            borderWidth: 1,
+            borderRadius: 4
+          },
+          {
+            label: "Average ($USD)",
+            data: levels.map(l => cur[l].avg),
+            backgroundColor: "rgba(56, 189, 248, 0.8)",
+            borderColor: "#38bdf8",
+            borderWidth: 2,
+            borderRadius: 6
+          },
+          {
+            label: "Max ($USD)",
+            data: levels.map(l => cur[l].max),
+            backgroundColor: "rgba(168, 85, 247, 0.5)",
+            borderColor: "#a855f7",
+            borderWidth: 1,
+            borderRadius: 4
+          }
+        ];
+      }
+
+      if (salaryChartInstance) salaryChartInstance.destroy();
+      salaryChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: { labels: levels.map(l => l + "-level"), datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#cbd5e1', font: { family: 'Inter', size: 11 } } },
+            tooltip: {
+              callbacks: {
+                label: ctx => `${ctx.dataset.label}: $${ctx.raw.toLocaleString()}`
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+            y: {
+              grid: { color: '#1e293b' },
+              ticks: { color: '#94a3b8', callback: v => '$' + (v / 1000) + 'k' }
+            }
+          }
+        }
+      });
+    }
+
+    function initSkillsChart() {
+      const ctx = document.getElementById('skillsChart').getContext('2d');
+      const filteredSkills = activeField === "ALL" 
+        ? DATASETS.skills 
+        : DATASETS.skills.filter(s => s.field === activeField || s.field === "All");
+
+      if (skillsChartInstance) skillsChartInstance.destroy();
+      skillsChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: filteredSkills.map(s => s.name),
+          datasets: [
+            {
+              label: 'YoY Growth Rate (%)',
+              data: filteredSkills.map(s => s.growth),
+              backgroundColor: filteredSkills.map(s => s.growth > 50 ? 'rgba(244, 63, 94, 0.85)' : 'rgba(59, 130, 246, 0.8)'),
+              borderColor: filteredSkills.map(s => s.growth > 50 ? '#f43f5e' : '#3b82f6'),
+              borderWidth: 1.5,
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => `+${ctx.raw}% YoY Growth` } }
+          },
+          scales: {
+            x: {
+              grid: { color: '#1e293b' },
+              ticks: { color: '#94a3b8', callback: v => v + '%' }
+            },
+            y: { grid: { color: '#1e293b' }, ticks: { color: '#cbd5e1' } }
+          }
+        }
+      });
+    }
+
+    function initGeoChart() {
+      const ctx = document.getElementById('geoChart').getContext('2d');
+      if (geoChartInstance) geoChartInstance.destroy();
+      geoChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: DATASETS.geography.map(g => g.country),
+          datasets: [{
+            data: DATASETS.geography.map(g => g.sharePct),
+            backgroundColor: [
+              '#3b82f6', '#06b6d4', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#64748b'
+            ],
+            borderColor: '#0f172a',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#cbd5e1', boxWidth: 10, font: { size: 10 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: ctx => ` ${ctx.label}: ${ctx.raw}% of Global Postings`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function setFieldFilter(field) {
+      activeField = field;
+      ['ALL', 'AI', 'Data Science', 'Statistics'].forEach(f => {
+        const btn = document.getElementById('btn-' + f);
+        if (f === field) {
+          btn.className = "text-xs px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition";
+        } else {
+          btn.className = "text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition";
+        }
+      });
+      document.getElementById("active-field-label").innerText = field === "ALL" ? "All Fields (Consolidated)" : field;
+      
+      // Update KPI
+      if (field === "AI") {
+        document.getElementById("kpi-salary").innerText = "$147,000";
+        document.getElementById("kpi-skill").innerText = "Agentic AI / MLOps";
+      } else if (field === "Data Science") {
+        document.getElementById("kpi-salary").innerText = "$125,000";
+        document.getElementById("kpi-skill").innerText = "SQL & Big Data";
+      } else if (field === "Statistics") {
+        document.getElementById("kpi-salary").innerText = "$108,000";
+        document.getElementById("kpi-skill").innerText = "Statistical Modeling";
+      } else {
+        document.getElementById("kpi-salary").innerText = "$124,500";
+        document.getElementById("kpi-skill").innerText = "Agentic AI";
+      }
+
+      initSalaryChart();
+      initSkillsChart();
+    }
+
+    function resetEdits() {
+      window.location.reload();
+    }
+
+    // Initialize all components on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderOpenDataTable();
+      initSalaryChart();
+      initSkillsChart();
+      initGeoChart();
+    });
+  </script>
+</body>
+</html>
