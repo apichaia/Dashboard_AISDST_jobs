@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AISDST Executive Dashboard | Global AI, Data Science & Statistics Job Market</title>
+  <title>AISDST Command Center | Global AI, Data Science & Statistics Intelligence</title>
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js via CDN -->
@@ -14,66 +14,114 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              50: '#eff6ff',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              cyan: '#06b6d4',
-              emerald: '#10b981',
-              violet: '#8b5cf6',
-              amber: '#f59e0b',
-              rose: '#f43f5e'
+            app: {
+              bg: '#091124',
+              card: '#10223E',
+              cardHover: '#14294B',
+              border: '#1E3A63'
             },
-            surface: {
-              darkest: '#090d16',
-              dark: '#0f172a',
-              card: '#1e293b',
-              cardHover: '#283548',
-              border: '#334155'
+            txt: {
+              primary: '#FFFFFF',
+              secondary: '#8E9AAF',
+              accent: '#38BDF8'
+            },
+            accent: {
+              blue: '#0091FF',
+              mint: '#00E5A3',
+              cyan: '#2DD4BF',
+              coral: '#FF6B4A',
+              gold: '#FACC15'
             }
+          },
+          borderRadius: {
+            'card': '6px',
+            'pill': '12px'
           }
         }
       }
     }
   </script>
   <style>
+    body {
+      background-color: #091124;
+      color: #FFFFFF;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
     [contenteditable="true"]:hover {
-      outline: 1px dashed #38bdf8;
+      outline: 1px dashed #38BDF8;
       border-radius: 4px;
       cursor: text;
     }
     [contenteditable="true"]:focus {
-      outline: 2px solid #38bdf8;
-      background: rgba(56, 189, 248, 0.08);
+      outline: 2px solid #0091FF;
+      background: rgba(0, 145, 255, 0.08);
       border-radius: 4px;
     }
-    .badge-glow {
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    .badge-pill-positive {
+      background: rgba(0, 229, 163, 0.2);
+      color: #00E5A3;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+    }
+    .badge-pill-negative {
+      background: rgba(255, 107, 74, 0.2);
+      color: #FF6B4A;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+    }
+    .badge-pill-warning {
+      background: rgba(250, 204, 21, 0.2);
+      color: #FACC15;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+    }
+    .badge-pill-neutral {
+      background: rgba(0, 145, 255, 0.18);
+      color: #38BDF8;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
     }
   </style>
 </head>
-<body class="bg-[#090d16] text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-[#091124] text-white min-h-screen antialiased selection:bg-[#0091FF] selection:text-white">
 
-  <!-- Top Sticky Header -->
-  <header class="sticky top-0 z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-surface-border px-6 py-4">
+  <!-- Top Command Center Header -->
+  <header class="sticky top-0 z-50 bg-[#0d1b33] border-b border-[#1E3A63] px-6 py-3.5 shadow-md">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div class="flex items-center space-x-3">
-        <span class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-sm px-3 py-1.5 rounded-lg tracking-wider badge-glow">AISDST</span>
+        <span class="bg-[#0091FF] text-white font-bold text-xs tracking-wider px-2.5 py-1.5 rounded-[4px] shadow-[0_0_10px_rgba(0,145,255,0.4)]">
+          AISDST COMMAND
+        </span>
         <div>
-          <h1 contenteditable="true" class="text-lg md:text-xl font-bold tracking-tight text-white hover:text-sky-300 transition-colors">
-            AI, Data Science & Statistics Global Job Market Intelligence
+          <h1 contenteditable="true" class="text-base md:text-lg font-bold tracking-tight text-white hover:text-sky-300 transition-colors">
+            AI, Data Science & Statistics Global Job Market Operations
           </h1>
-          <p contenteditable="true" class="text-xs text-slate-400">
-            Live Open Data Benchmark • Click any text with ✎ to edit dynamically
+          <p contenteditable="true" class="text-xs text-[#8E9AAF]">
+            Deep Navy Command Center View • Live Open Data Context • Click text with ✎ to edit
           </p>
         </div>
       </div>
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-full font-medium flex items-center">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span> Open Data Live Context
+        <span class="badge-pill-positive">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00E5A3] animate-pulse mr-1.5"></span> Systems Nominal
         </span>
-        <button onclick="resetEdits()" class="text-xs bg-surface-card hover:bg-surface-cardHover text-slate-300 border border-surface-border px-3 py-1.5 rounded-lg transition-colors">
+        <button onclick="resetEdits()" class="text-xs bg-[#10223E] hover:bg-[#14294B] text-[#8E9AAF] hover:text-white border border-[#1E3A63] px-3 py-1.5 rounded-[4px] transition-colors">
           Reset Text
         </button>
       </div>
@@ -81,134 +129,147 @@
   </header>
 
   <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 md:px-6 py-8 space-y-8">
+  <main class="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-6">
 
-    <!-- Role Filter & Search Bar -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-card border border-surface-border p-4 rounded-xl">
+    <!-- Role Filter & Command Toolbar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#10223E] border border-[#1E3A63] p-3.5 rounded-[6px]">
       <div class="flex items-center space-x-2">
-        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Filter Field:</span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-[#8E9AAF]">Field Telemetry:</span>
         <div class="flex flex-wrap gap-1.5" id="field-filter-group">
-          <button onclick="setFieldFilter('ALL')" id="btn-ALL" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition">All Fields</button>
-          <button onclick="setFieldFilter('AI')" id="btn-AI" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition">AI</button>
-          <button onclick="setFieldFilter('Data Science')" id="btn-Data Science" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition">Data Science</button>
-          <button onclick="setFieldFilter('Statistics')" id="btn-Statistics" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition">Statistics</button>
+          <button onclick="setFieldFilter('ALL')" id="btn-ALL" class="text-xs px-3 py-1.5 rounded-[4px] font-semibold bg-[#0091FF] text-white transition">All Fields</button>
+          <button onclick="setFieldFilter('AI')" id="btn-AI" class="text-xs px-3 py-1.5 rounded-[4px] font-semibold bg-[#0d1b32] text-[#8E9AAF] hover:text-white border border-[#1E3A63] transition">AI</button>
+          <button onclick="setFieldFilter('Data Science')" id="btn-Data Science" class="text-xs px-3 py-1.5 rounded-[4px] font-semibold bg-[#0d1b32] text-[#8E9AAF] hover:text-white border border-[#1E3A63] transition">Data Science</button>
+          <button onclick="setFieldFilter('Statistics')" id="btn-Statistics" class="text-xs px-3 py-1.5 rounded-[4px] font-semibold bg-[#0d1b32] text-[#8E9AAF] hover:text-white border border-[#1E3A63] transition">Statistics</button>
         </div>
       </div>
-      <div class="text-xs text-slate-400">
-        Active Category: <span id="active-field-label" class="font-bold text-sky-400">All Fields (Consolidated)</span>
+      <div class="text-xs text-[#8E9AAF]">
+        Active Stream: <span id="active-field-label" class="font-bold text-[#38BDF8]">All Fields (Consolidated)</span>
       </div>
     </div>
 
     <!-- Top KPI Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Median Global Salary</p>
-        <h3 contenteditable="true" id="kpi-salary" class="text-3xl font-extrabold text-white mt-1">$124,500</h3>
-        <p contenteditable="true" class="text-xs text-emerald-400 mt-2 flex items-center font-medium">
-          ▲ +14.2% YoY growth across 2024-2025
+      
+      <!-- KPI 1 -->
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 relative overflow-hidden group hover:bg-[#14294B] transition shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
+        <div class="absolute top-0 left-0 right-0 h-[2px] bg-[#0091FF]"></div>
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold uppercase tracking-wider text-[#8E9AAF]">Median Base Salary</p>
+          <span class="badge-pill-positive">14.2% ↑</span>
+        </div>
+        <h3 contenteditable="true" id="kpi-salary" class="text-3xl font-bold text-white mt-1.5">$124,500</h3>
+        <p contenteditable="true" class="text-xs text-[#8E9AAF] mt-2">
+          Global market benchmark across roles
         </p>
       </div>
 
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500"></div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Fastest Growing Competency</p>
-        <h3 contenteditable="true" id="kpi-skill" class="text-3xl font-extrabold text-white mt-1">Agentic AI</h3>
-        <p contenteditable="true" class="text-xs text-purple-400 mt-2 font-medium">
-          ▲ +84.5% demand increase in requisitions
+      <!-- KPI 2 -->
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 relative overflow-hidden group hover:bg-[#14294B] transition shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
+        <div class="absolute top-0 left-0 right-0 h-[2px] bg-[#00E5A3]"></div>
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold uppercase tracking-wider text-[#8E9AAF]">Fastest Demand Velocity</p>
+          <span class="badge-pill-negative">84.5% ↑</span>
+        </div>
+        <h3 contenteditable="true" id="kpi-skill" class="text-3xl font-bold text-white mt-1.5">Agentic AI</h3>
+        <p contenteditable="true" class="text-xs text-[#8E9AAF] mt-2">
+          Top requisition demand surge
         </p>
       </div>
 
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Top Global Hiring Hub</p>
-        <h3 contenteditable="true" class="text-3xl font-extrabold text-white mt-1">United States / SG</h3>
-        <p contenteditable="true" class="text-xs text-teal-400 mt-2 font-medium">
-          50% aggregate requisition share
+      <!-- KPI 3 -->
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 relative overflow-hidden group hover:bg-[#14294B] transition shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
+        <div class="absolute top-0 left-0 right-0 h-[2px] bg-[#FACC15]"></div>
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold uppercase tracking-wider text-[#8E9AAF]">Primary Hiring Hubs</p>
+          <span class="badge-pill-neutral">50% Share</span>
+        </div>
+        <h3 contenteditable="true" class="text-3xl font-bold text-white mt-1.5">US & Singapore</h3>
+        <p contenteditable="true" class="text-xs text-[#8E9AAF] mt-2">
+          Dominant geographic talent demand
         </p>
       </div>
 
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5 relative overflow-hidden group hover:border-slate-500 transition">
-        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Open Data Sources</p>
-        <h3 contenteditable="true" class="text-3xl font-extrabold text-white mt-1">5 Catalogs</h3>
-        <p contenteditable="true" class="text-xs text-amber-400 mt-2 font-medium">
-          BLS, Kaggle, OECD, WorldBank, HF
+      <!-- KPI 4 -->
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 relative overflow-hidden group hover:bg-[#14294B] transition shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
+        <div class="absolute top-0 left-0 right-0 h-[2px] bg-[#FF6B4A]"></div>
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold uppercase tracking-wider text-[#8E9AAF]">Open Data Feeds</p>
+          <span class="badge-pill-positive">5 Catalogs</span>
+        </div>
+        <h3 contenteditable="true" class="text-3xl font-bold text-white mt-1.5">Verified</h3>
+        <p contenteditable="true" class="text-xs text-[#8E9AAF] mt-2">
+          BLS, OECD, Kaggle, WorldBank, HF
         </p>
       </div>
     </div>
 
-    <!-- Charts Row 1: Salary Ranges & Skills Growth -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Charts Row 1: Salary Ranges & Skills Demand -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
       
-      <!-- Salary Chart -->
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5">
-        <div class="flex items-center justify-between mb-4">
+      <!-- Salary Chart Panel -->
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
+        <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#1E3A63]/60">
           <div>
-            <h3 contenteditable="true" class="text-base font-bold text-white flex items-center">
-              💵 Salary Ranges by Seniority ($USD)
+            <h3 contenteditable="true" class="text-sm font-semibold text-white">
+              Compensation Architecture by Seniority Tier ($USD)
             </h3>
-            <p contenteditable="true" class="text-xs text-slate-400">Entry, Mid, Senior, and Expert compensation bounds</p>
+            <p contenteditable="true" class="text-xs text-[#8E9AAF]">Entry, Mid, Senior, and Expert salary spreads</p>
           </div>
-          <span class="text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded font-mono">Chart.js</span>
+          <span class="badge-pill-neutral">Plotly/Dark Token</span>
         </div>
-        <div class="h-72">
+        <div class="h-64">
           <canvas id="salaryChart"></canvas>
         </div>
       </div>
 
-      <!-- Skills Chart -->
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5">
-        <div class="flex items-center justify-between mb-4">
+      <!-- Skills Chart Panel -->
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
+        <div class="flex items-center justify-between pb-2 mb-3 border-b border-[#1E3A63]/60">
           <div>
-            <h3 contenteditable="true" class="text-base font-bold text-white flex items-center">
-              🚀 Top Required Skills & Growth Rates
+            <h3 contenteditable="true" class="text-sm font-semibold text-white">
+              High-Velocity Technical Competencies (% YoY Surge)
             </h3>
-            <p contenteditable="true" class="text-xs text-slate-400">Market requisition prevalence and YoY velocity</p>
+            <p contenteditable="true" class="text-xs text-[#8E9AAF]">Requisition frequency and annual growth rate</p>
           </div>
-          <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded font-mono">Growth %</span>
+          <span class="badge-pill-positive">High Growth</span>
         </div>
-        <div class="h-72">
+        <div class="h-64">
           <canvas id="skillsChart"></canvas>
         </div>
       </div>
     </div>
 
     <!-- Charts Row 2: Geography & Open Data References -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
       <!-- Geographic Distribution -->
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5 lg:col-span-1">
-        <div class="flex items-center justify-between mb-4">
-          <div>
-            <h3 contenteditable="true" class="text-base font-bold text-white">🌍 Hiring Geography Demand</h3>
-            <p contenteditable="true" class="text-xs text-slate-400">Market share by primary country hubs</p>
-          </div>
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.25)] lg:col-span-1">
+        <div class="pb-2 mb-3 border-b border-[#1E3A63]/60">
+          <h3 contenteditable="true" class="text-sm font-semibold text-white">Geographic Hiring Distribution</h3>
+          <p contenteditable="true" class="text-xs text-[#8E9AAF]">Global market share by primary jurisdiction</p>
         </div>
-        <div class="h-64 flex items-center justify-center">
+        <div class="h-60 flex items-center justify-center">
           <canvas id="geoChart"></canvas>
         </div>
       </div>
 
       <!-- Open Data Sources Catalog -->
-      <div class="bg-surface-card border border-surface-border rounded-xl p-5 lg:col-span-2">
-        <div class="flex items-center justify-between mb-4">
-          <div>
-            <h3 contenteditable="true" class="text-base font-bold text-white">🔗 Open Data Sources & Verification Repositories</h3>
-            <p contenteditable="true" class="text-xs text-slate-400">Dynamic references utilized for baseline metrics validation</p>
-          </div>
+      <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.25)] lg:col-span-2">
+        <div class="pb-2 mb-3 border-b border-[#1E3A63]/60">
+          <h3 contenteditable="true" class="text-sm font-semibold text-white">Open Data Intelligence Feeds & Repositories</h3>
+          <p contenteditable="true" class="text-xs text-[#8E9AAF]">Primary verification benchmarks utilized across analysis</p>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
             <thead>
-              <tr class="border-b border-surface-border text-slate-400 uppercase font-semibold">
-                <th class="py-2.5 px-3">Dataset Source</th>
+              <tr class="border-b border-[#1E3A63] text-[#8E9AAF] uppercase font-semibold">
+                <th class="py-2.5 px-3">Dataset Repository</th>
                 <th class="py-2.5 px-3">Domain</th>
-                <th class="py-2.5 px-3">Coverage</th>
+                <th class="py-2.5 px-3">Scope</th>
                 <th class="py-2.5 px-3 text-right">Access Link</th>
               </tr>
             </thead>
-            <tbody id="open-data-table-body" class="divide-y divide-slate-800">
+            <tbody id="open-data-table-body" class="divide-y divide-[#1E3A63]/50">
               <!-- Populated by JavaScript -->
             </tbody>
           </table>
@@ -216,16 +277,16 @@
       </div>
     </div>
 
-    <!-- Executive Notes Section (ContentEditable) -->
-    <div class="bg-surface-card border border-surface-border rounded-xl p-6">
+    <!-- Operations Takeaways (ContentEditable) -->
+    <div class="bg-[#10223E] border border-[#1E3A63] rounded-[6px] p-4 shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
       <div class="flex items-center justify-between mb-2">
-        <h4 class="text-sm font-bold text-white uppercase tracking-wider text-sky-400">📝 Strategic Curriculum & Policy Takeaways (Editable)</h4>
-        <span class="text-xs text-slate-500">Live Note-taking Pad</span>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">Command Center Strategic Directives (Editable)</h4>
+        <span class="text-xs text-[#8E9AAF]">Live Executive Session Pad</span>
       </div>
-      <div contenteditable="true" class="p-3 bg-surface-dark rounded-lg text-sm text-slate-300 leading-relaxed border border-surface-border">
-        <strong>1. Severe Deficit in Agentic AI & MLOps:</strong> Industry requisitions have surged by +84.5% for Agentic AI workflows and LLM orchestration (LangChain, Vector DBs), yet university curricula remain heavily anchored to foundational tabular algorithms and standalone classification.<br>
-        <strong>2. Employment Velocity vs. Specialization:</strong> Data Science graduates achieve 94.5% employment within 24 months, but AI specialists command an average 26% salary premium across Senior and Expert tiers.<br>
-        <strong>3. Academic Policy Mandate:</strong> Recommendation to integrate mandatory 3-credit cloud orchestration (Docker, Kubernetes, AWS/GCP) in Year 3 across all computer and data curricula.
+      <div contenteditable="true" class="p-3 bg-[#091124] rounded-[4px] text-xs text-[#FFFFFF] leading-relaxed border border-[#1E3A63]">
+        <strong style="color: #FF6B4A;">1. Critical Competency Deficit in Agentic AI:</strong> Requisitions have surged by +84.5% for autonomous agent frameworks, orchestration (LangChain, LlamaIndex), and Vector DBs. University curricula remain heavily weighted toward foundational statistical tests and legacy ML.<br>
+        <strong style="color: #0091FF;">2. Salary Premia by Domain:</strong> AI Engineers and MLOps Architects capture an average 26% premium over traditional Data Science roles at Senior and Expert seniority levels.<br>
+        <strong style="color: #00E5A3;">3. Action Mandate for Deans:</strong> Integrate mandatory 3-credit Cloud Orchestration (Docker, Kubernetes, AWS/GCP) in Year 3 to close the employment velocity gap.
       </div>
     </div>
 
@@ -233,7 +294,7 @@
 
   <!-- Embedded Datasets & Script Engine -->
   <script>
-    // Embedded Datasets (JSON Structure) as specified in gemini-code-1791193677901.md
+    // Embedded Datasets (JSON Structure) matching handoff specification
     const DATASETS = {
       salaries: {
         "AI": {
@@ -291,12 +352,12 @@
     function renderOpenDataTable() {
       const tbody = document.getElementById("open-data-table-body");
       tbody.innerHTML = DATASETS.openDataSources.map(s => `
-        <tr class="hover:bg-slate-800/50 transition">
-          <td class="py-2.5 px-3 font-medium text-slate-200">${s.name}</td>
-          <td class="py-2.5 px-3 text-slate-400">${s.domain}</td>
-          <td class="py-2.5 px-3 text-slate-400"><span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">${s.coverage}</span></td>
+        <tr class="hover:bg-[#14294B]/60 transition">
+          <td class="py-2.5 px-3 font-medium text-white">${s.name}</td>
+          <td class="py-2.5 px-3 text-[#8E9AAF]">${s.domain}</td>
+          <td class="py-2.5 px-3 text-[#8E9AAF]"><span class="bg-[#091124] text-[#38BDF8] px-2 py-0.5 rounded-[4px] border border-[#1E3A63]">${s.coverage}</span></td>
           <td class="py-2.5 px-3 text-right">
-            <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline font-mono text-xs">
+            <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="text-[#38BDF8] hover:text-[#0091FF] underline font-mono text-xs">
               Explore ↗
             </a>
           </td>
@@ -311,14 +372,14 @@
       let datasets = [];
       if (activeField === "ALL") {
         const fields = ["AI", "Data Science", "Statistics"];
-        const colors = { "AI": "#38bdf8", "Data Science": "#a855f7", "Statistics": "#10b981" };
+        const colors = { "AI": "#0091FF", "Data Science": "#00E5A3", "Statistics": "#FACC15" };
         datasets = fields.map(f => ({
           label: f,
           data: levels.map(l => DATASETS.salaries[f][l].avg),
-          backgroundColor: colors[f] + "99",
+          backgroundColor: colors[f] + "B3",
           borderColor: colors[f],
-          borderWidth: 2,
-          borderRadius: 6
+          borderWidth: 1.5,
+          borderRadius: 4
         }));
       } else {
         const cur = DATASETS.salaries[activeField];
@@ -326,26 +387,26 @@
           {
             label: "Min ($USD)",
             data: levels.map(l => cur[l].min),
-            backgroundColor: "rgba(100, 116, 139, 0.4)",
-            borderColor: "#64748b",
+            backgroundColor: "rgba(142, 154, 175, 0.35)",
+            borderColor: "#8E9AAF",
             borderWidth: 1,
-            borderRadius: 4
+            borderRadius: 3
           },
           {
             label: "Average ($USD)",
             data: levels.map(l => cur[l].avg),
-            backgroundColor: "rgba(56, 189, 248, 0.8)",
-            borderColor: "#38bdf8",
-            borderWidth: 2,
-            borderRadius: 6
+            backgroundColor: "rgba(0, 145, 255, 0.85)",
+            borderColor: "#0091FF",
+            borderWidth: 1.5,
+            borderRadius: 4
           },
           {
             label: "Max ($USD)",
             data: levels.map(l => cur[l].max),
-            backgroundColor: "rgba(168, 85, 247, 0.5)",
-            borderColor: "#a855f7",
+            backgroundColor: "rgba(0, 229, 163, 0.45)",
+            borderColor: "#00E5A3",
             borderWidth: 1,
-            borderRadius: 4
+            borderRadius: 3
           }
         ];
       }
@@ -358,7 +419,7 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: {
-            legend: { labels: { color: '#cbd5e1', font: { family: 'Inter', size: 11 } } },
+            legend: { labels: { color: '#FFFFFF', font: { family: 'Segoe UI', size: 11 } } },
             tooltip: {
               callbacks: {
                 label: ctx => `${ctx.dataset.label}: $${ctx.raw.toLocaleString()}`
@@ -366,10 +427,10 @@
             }
           },
           scales: {
-            x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+            x: { grid: { color: '#1E3A63' }, ticks: { color: '#8E9AAF', font: { family: 'Segoe UI' } } },
             y: {
-              grid: { color: '#1e293b' },
-              ticks: { color: '#94a3b8', callback: v => '$' + (v / 1000) + 'k' }
+              grid: { color: '#1E3A63' },
+              ticks: { color: '#8E9AAF', font: { family: 'Segoe UI' }, callback: v => '$' + (v / 1000) + 'k' }
             }
           }
         }
@@ -391,10 +452,10 @@
             {
               label: 'YoY Growth Rate (%)',
               data: filteredSkills.map(s => s.growth),
-              backgroundColor: filteredSkills.map(s => s.growth > 50 ? 'rgba(244, 63, 94, 0.85)' : 'rgba(59, 130, 246, 0.8)'),
-              borderColor: filteredSkills.map(s => s.growth > 50 ? '#f43f5e' : '#3b82f6'),
+              backgroundColor: filteredSkills.map(s => s.growth > 50 ? 'rgba(255, 107, 74, 0.85)' : 'rgba(0, 145, 255, 0.8)'),
+              borderColor: filteredSkills.map(s => s.growth > 50 ? '#FF6B4A' : '#0091FF'),
               borderWidth: 1.5,
-              borderRadius: 6
+              borderRadius: 4
             }
           ]
         },
@@ -404,14 +465,14 @@
           maintainAspectRatio: false,
           plugins: {
             legend: { display: false },
-            tooltip: { callbacks: { label: ctx => `+${ctx.raw}% YoY Growth` } }
+            tooltip: { callbacks: { label: ctx => `+${ctx.raw}% YoY Surge` } }
           },
           scales: {
             x: {
-              grid: { color: '#1e293b' },
-              ticks: { color: '#94a3b8', callback: v => v + '%' }
+              grid: { color: '#1E3A63' },
+              ticks: { color: '#8E9AAF', font: { family: 'Segoe UI' }, callback: v => v + '%' }
             },
-            y: { grid: { color: '#1e293b' }, ticks: { color: '#cbd5e1' } }
+            y: { grid: { color: '#1E3A63' }, ticks: { color: '#FFFFFF', font: { family: 'Segoe UI' } } }
           }
         }
       });
@@ -427,9 +488,9 @@
           datasets: [{
             data: DATASETS.geography.map(g => g.sharePct),
             backgroundColor: [
-              '#3b82f6', '#06b6d4', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#64748b'
+              '#0091FF', '#00E5A3', '#38BDF8', '#FACC15', '#FF6B4A', '#2DD4BF', '#8E9AAF'
             ],
-            borderColor: '#0f172a',
+            borderColor: '#10223E',
             borderWidth: 2
           }]
         },
@@ -439,11 +500,11 @@
           plugins: {
             legend: {
               position: 'bottom',
-              labels: { color: '#cbd5e1', boxWidth: 10, font: { size: 10 } }
+              labels: { color: '#FFFFFF', boxWidth: 10, font: { family: 'Segoe UI', size: 10 } }
             },
             tooltip: {
               callbacks: {
-                label: ctx => ` ${ctx.label}: ${ctx.raw}% of Global Postings`
+                label: ctx => ` ${ctx.label}: ${ctx.raw}% of Global Requisitions`
               }
             }
           }
@@ -456,17 +517,16 @@
       ['ALL', 'AI', 'Data Science', 'Statistics'].forEach(f => {
         const btn = document.getElementById('btn-' + f);
         if (f === field) {
-          btn.className = "text-xs px-3 py-1.5 rounded-lg font-medium bg-blue-600 text-white transition";
+          btn.className = "text-xs px-3 py-1.5 rounded-[4px] font-semibold bg-[#0091FF] text-white transition";
         } else {
-          btn.className = "text-xs px-3 py-1.5 rounded-lg font-medium bg-surface-dark text-slate-300 hover:text-white border border-surface-border transition";
+          btn.className = "text-xs px-3 py-1.5 rounded-[4px] font-semibold bg-[#0d1b32] text-[#8E9AAF] hover:text-white border border-[#1E3A63] transition";
         }
       });
       document.getElementById("active-field-label").innerText = field === "ALL" ? "All Fields (Consolidated)" : field;
       
-      // Update KPI
       if (field === "AI") {
         document.getElementById("kpi-salary").innerText = "$147,000";
-        document.getElementById("kpi-skill").innerText = "Agentic AI / MLOps";
+        document.getElementById("kpi-skill").innerText = "Agentic AI";
       } else if (field === "Data Science") {
         document.getElementById("kpi-salary").innerText = "$125,000";
         document.getElementById("kpi-skill").innerText = "SQL & Big Data";
@@ -486,7 +546,6 @@
       window.location.reload();
     }
 
-    // Initialize all components on load
     window.addEventListener('DOMContentLoaded', () => {
       renderOpenDataTable();
       initSalaryChart();

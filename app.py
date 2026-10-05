@@ -2,6 +2,7 @@
 app.py
 Main entry point for AI & Data Science Job Market and Education Dashboard (AISDST).
 Built with Plotly Dash, Dash Bootstrap Components, and Pandas.
+Styled in Deep Navy Command Center aesthetic.
 """
 
 import os
@@ -13,7 +14,7 @@ from src.components.tab_market import render_tab_market_layout
 from src.components.tab_mismatch import render_tab_mismatch_layout
 from src.callbacks import register_callbacks
 
-# Initialize Dash application with Darkly theme & custom font assets
+# Initialize Dash application with custom font assets
 app = Dash(
     __name__,
     external_stylesheets=[
@@ -24,40 +25,45 @@ app = Dash(
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1, shrink-to-fit=no"}
     ],
-    title="AISDST | AI & Data Science Job Market & Education Dashboard"
+    title="AISDST Command Center | AI & Data Science Market & Education"
 )
 
 server = app.server
 
 # ---------------------------------------------------------------------------
-# Navigation Bar & Brand Header
+# Navigation Bar & Command Center Header
 # ---------------------------------------------------------------------------
 navbar = html.Header(
     dbc.Container([
         dbc.Row([
             dbc.Col([
                 html.Div([
-                    html.Span("AISDST", className="aisdst-logo-badge me-2"),
+                    html.Span("AISDST OPS", className="aisdst-logo-badge me-3"),
                     html.Span(
                         "AI & Data Science Job Market and Education Dashboard",
                         className="fs-5 fw-bold text-white align-middle"
                     ),
                     html.Div(
-                        "ระบบวิเคราะห์ศักยภาพการผลิตบัณฑิต ความต้องการของตลาดแรงงาน และช่องว่างทางทักษะ",
-                        className="text-muted small mt-1"
+                        "ศูนย์วิเคราะห์เชิงปฏิบัติการ: ศักยภาพการผลิตบัณฑิต ตลาดแรงงาน และช่องว่างทักษะวิกฤต",
+                        className="small mt-1",
+                        style={"color": "#8E9AAF"}
                     )
                 ])
             ], md=8, sm=12),
             dbc.Col([
                 html.Div([
-                    dbc.Badge("Interactive Reactive Analytics", color="primary", className="me-2 p-2"),
+                    html.Span(
+                        [html.I(className="bi bi-broadcast me-1"), "Live Cross-Filter Active"],
+                        className="badge-pill-positive me-2 p-2"
+                    ),
                     dbc.Button(
                         [html.I(className="bi bi-box-arrow-up-right me-1"), "Executive HTML"],
                         href="/assets/index.html" if os.path.exists("assets/index.html") else "#",
                         target="_blank",
-                        color="outline-info",
+                        color="primary",
                         size="sm",
-                        className="rounded-pill"
+                        className="rounded-1",
+                        style={"backgroundColor": "#0091FF", "borderColor": "#0091FF", "fontWeight": "600"}
                     )
                 ], className="text-md-end text-sm-start mt-2 mt-md-0")
             ], md=4, sm=12)
@@ -101,25 +107,26 @@ app.layout = html.Div([
             className="mt-3"
         ),
         
-        # Footer
+        # Command Center Footer
         html.Footer([
-            html.Hr(className="border-secondary my-4"),
+            html.Hr(style={"borderColor": "#1E3A63", "margin": "2rem 0 1rem 0"}),
             dbc.Row([
                 dbc.Col([
                     html.P([
-                        "AISDST Platform © 2026. Built according to Business Requirements Document (BRD). ",
-                        "Designed for Academic Deans, Curriculum Committees, and Workforce Analysts."
-                    ], className="text-muted small mb-0")
+                        "AISDST Operations Command Center © 2026. Built according to BRD & UI Style Specification. ",
+                        "Designed for Academic Deans, Curriculum Committees, and Labor Policy Strategists."
+                    ], className="small mb-0", style={"color": "#8E9AAF"})
                 ], md=8),
                 dbc.Col([
                     html.P([
-                        html.Span("Open Data Ready • Cross-filtering Reactive Engine", className="text-info small")
-                    ], className="text-md-end text-muted small mb-0")
+                        html.Span("Deep Navy Command Center Theme • High-Contrast Electric Accents", 
+                                  style={"color": "#38BDF8", "fontSize": "12px", "fontWeight": "500"})
+                    ], className="text-md-end small mb-0")
                 ], md=4)
             ], className="pb-4")
         ])
     ], fluid=True, className="px-4")
-])
+], style={"backgroundColor": "#091124", "minHeight": "100vh"})
 
 # Register reactive cross-filtering callbacks
 register_callbacks(app)

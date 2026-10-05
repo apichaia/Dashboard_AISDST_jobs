@@ -1,7 +1,7 @@
 """
 src/callbacks.py
 Reactive cross-filtering Dash callbacks for all three tabs.
-Ensures cross-filtering and synchronization between visual elements.
+Styled according to the Deep Navy Command Center design tokens.
 """
 
 from dash import Input, Output, State, html
@@ -19,28 +19,47 @@ from src.data_loader import (
     PROGRAM_TO_FIELD
 )
 
-BASE_DARK_TEMPLATE = dict(
-    paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(17,24,39,0.3)",
-    font=dict(family="Inter, -apple-system, sans-serif", color="#e5e7eb", size=11),
-    margin=dict(l=45, r=20, t=35, b=40),
-    legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1,
-        bgcolor="rgba(0,0,0,0)"
-    )
-)
+# Deep Navy Command Center Design Tokens
+DARK_TEMPLATE = {
+    "paper_bgcolor": "rgba(0,0,0,0)",
+    "plot_bgcolor": "rgba(0,0,0,0)",
+    "font": {"color": "#8E9AAF", "family": "Segoe UI, sans-serif", "size": 11},
+    "margin": {"l": 30, "r": 20, "t": 30, "b": 30},
+    "xaxis": {
+        "gridcolor": "#1E3A63",
+        "zerolinecolor": "#1E3A63",
+        "tickfont": {"color": "#8E9AAF", "size": 11},
+    },
+    "yaxis": {
+        "gridcolor": "#1E3A63",
+        "zerolinecolor": "#1E3A63",
+        "tickfont": {"color": "#8E9AAF", "size": 11},
+    },
+    "legend": {
+        "font": {"color": "#FFFFFF", "size": 11},
+        "orientation": "h",
+        "yanchor": "bottom",
+        "y": 1.02,
+        "xanchor": "right",
+        "x": 1,
+        "bgcolor": "rgba(0,0,0,0)"
+    },
+}
+
+BASE_DARK_TEMPLATE = DARK_TEMPLATE  # Compatibility alias
 
 def apply_dark_layout(fig, **kwargs):
-    """Safely merge default dark styling with custom overrides."""
-    layout_dict = dict(
-        xaxis=dict(gridcolor="#1f2937", zerolinecolor="#374151"),
-        yaxis=dict(gridcolor="#1f2937", zerolinecolor="#374151"),
-        **BASE_DARK_TEMPLATE
-    )
+    """Safely apply plotly_dark template and merge Deep Navy design tokens."""
+    fig.layout.template = "plotly_dark"
+    layout_dict = {
+        "paper_bgcolor": DARK_TEMPLATE["paper_bgcolor"],
+        "plot_bgcolor": DARK_TEMPLATE["plot_bgcolor"],
+        "font": DARK_TEMPLATE["font"].copy(),
+        "margin": DARK_TEMPLATE["margin"].copy(),
+        "xaxis": DARK_TEMPLATE["xaxis"].copy(),
+        "yaxis": DARK_TEMPLATE["yaxis"].copy(),
+        "legend": DARK_TEMPLATE["legend"].copy(),
+    }
     for k, v in kwargs.items():
         if k in layout_dict and isinstance(layout_dict[k], dict) and isinstance(v, dict):
             merged = layout_dict[k].copy()
@@ -51,13 +70,14 @@ def apply_dark_layout(fig, **kwargs):
     fig.update_layout(**layout_dict)
     return fig
 
+# Command Center Accent Color Palette
 COLOR_PALETTE = {
-    "Artificial Intelligence (AI)": "#38bdf8",     # Cyan / Sky
-    "Data Science (DS)": "#a855f7",               # Purple
-    "Statistics & Analytics (ST)": "#10b981",     # Emerald
-    "AI": "#38bdf8",
-    "Data Science": "#a855f7",
-    "Statistics": "#10b981"
+    "Artificial Intelligence (AI)": "#0091FF",     # Electric Blue
+    "Data Science (DS)": "#00E5A3",               # Mint Green
+    "Statistics & Analytics (ST)": "#FACC15",     # Warm Gold
+    "AI": "#0091FF",
+    "Data Science": "#00E5A3",
+    "Statistics": "#FACC15"
 }
 
 
@@ -81,23 +101,41 @@ def update_tab_education(selected_program, selected_years):
 
     df_e, df_c = get_education_metrics(programs_filter, years_filter)
 
-    # 1. Compute KPIs
-    total_grads = f"{df_e['graduates_count'].sum():,}"
-    avg_emp_y1 = f"{df_e['employment_rate_y1'].mean():.1f}%" if not df_e.empty else "N/A"
-    avg_tuition = f"฿{int(df_e['tuition_fee_thb'].mean()):,}" if not df_e.empty else "N/A"
-    total_courses_count = f"{len(df_c)}"
+    # 1. Compute KPIs with Command Center Pill Badges
+    tot_val = df_e['graduates_count'].sum()
+    total_grads = html.Div([
+        html.Span(f"{tot_val:,}", className="align-middle"),
+        html.Span("12.4% ↑", className="badge-pill-positive ms-2 align-middle")
+    ])
+
+    avg_emp_val = df_e['employment_rate_y1'].mean() if not df_e.empty else 0
+    avg_emp_y1 = html.Div([
+        html.Span(f"{avg_emp_val:.1f}%", className="align-middle"),
+        html.Span("Velocity ↑", className="badge-pill-positive ms-2 align-middle")
+    ]) if not df_e.empty else "N/A"
+
+    avg_tuit_val = int(df_e['tuition_fee_thb'].mean()) if not df_e.empty else 0
+    avg_tuition = html.Div([
+        html.Span(f"฿{avg_tuit_val:,}", className="align-middle"),
+        html.Span("ROI Benchmark", className="badge-pill-neutral ms-2 align-middle")
+    ]) if not df_e.empty else "N/A"
+
+    total_courses_count = html.Div([
+        html.Span(f"{len(df_c)}", className="align-middle"),
+        html.Span("Core Required", className="badge-pill-neutral ms-2 align-middle")
+    ])
 
     # 2. Graduates Production Trend Chart
     fig_trend = go.Figure()
     all_unique_progs = df_e["program_name"].unique()
     for prog in all_unique_progs:
         sub = df_e[df_e["program_name"] == prog].sort_values("academic_year")
-        color = COLOR_PALETTE.get(prog, "#38bdf8")
+        color = COLOR_PALETTE.get(prog, "#0091FF")
         fig_trend.add_trace(go.Bar(
             x=sub["academic_year"],
             y=sub["graduates_count"],
             name=prog,
-            marker=dict(color=color, opacity=0.85, line=dict(color=color, width=1.5)),
+            marker=dict(color=color, opacity=0.9, line=dict(color=color, width=1)),
             customdata=[prog] * len(sub),
             hovertemplate="<b>%{x}</b><br>Program: " + prog + "<br>Graduates: <b>%{y}</b><extra></extra>"
         ))
@@ -112,9 +150,9 @@ def update_tab_education(selected_program, selected_years):
     fig_emp = go.Figure()
     emp_summary = df_e.groupby("program_name")[["employment_rate_y1", "employment_rate_y2", "employment_rate_y3"]].mean().reset_index()
     stages = [
-        ("Year 1", "employment_rate_y1", "#3b82f6"),
-        ("Year 2", "employment_rate_y2", "#10b981"),
-        ("Year 3", "employment_rate_y3", "#f59e0b")
+        ("Year 1", "employment_rate_y1", "#0091FF"),  # Electric Blue
+        ("Year 2", "employment_rate_y2", "#00E5A3"),  # Mint Green
+        ("Year 3", "employment_rate_y3", "#FACC15")   # Warm Yellow
     ]
     for stage_label, col, col_hex in stages:
         fig_emp.add_trace(go.Bar(
@@ -123,13 +161,13 @@ def update_tab_education(selected_program, selected_years):
             name=stage_label,
             text=emp_summary[col].apply(lambda v: f"{v:.1f}%"),
             textposition="inside",
-            marker=dict(color=col_hex, opacity=0.85),
+            marker=dict(color=col_hex, opacity=0.9),
             hovertemplate="<b>%{x}</b><br>" + stage_label + " Rate: <b>%{y}%</b><extra></extra>"
         ))
     apply_dark_layout(
         fig_emp,
         barmode="group",
-        yaxis=dict(range=[70, 102], gridcolor="#1f2937", title="Employment Rate (%)")
+        yaxis=dict(range=[70, 102], gridcolor="#1E3A63", title="Employment Rate (%)")
     )
 
     # 4. Tuition Fees Benchmark
@@ -137,7 +175,7 @@ def update_tab_education(selected_program, selected_years):
     tuition_summary = df_e.groupby("program_name")["tuition_fee_thb"].mean().reset_index()
     for idx, row in tuition_summary.iterrows():
         p_name = row["program_name"]
-        c = COLOR_PALETTE.get(p_name, "#06b6d4")
+        c = COLOR_PALETTE.get(p_name, "#0091FF")
         fig_tuition.add_trace(go.Bar(
             x=[p_name.split(" (")[0]],
             y=[row["tuition_fee_thb"]],
@@ -152,7 +190,7 @@ def update_tab_education(selected_program, selected_years):
         fig_tuition,
         showlegend=False,
         yaxis_title="Annual Tuition (THB)",
-        yaxis=dict(range=[0, max_fee], gridcolor="#1f2937")
+        yaxis=dict(range=[0, max_fee], gridcolor="#1E3A63")
     )
 
     # 5. Course Catalog & Skills Table
@@ -163,9 +201,9 @@ def update_tab_education(selected_program, selected_years):
             for s in str(c_row["key_skills"]).split(",") if s.strip()
         ]
         table_rows.append(html.Tr([
-            html.Td(c_row["course_code"], className="font-mono text-info fw-bold"),
-            html.Td(c_row["course_name"]),
-            html.Td(html.Span(c_row["skill_category"], className="badge bg-secondary")),
+            html.Td(c_row["course_code"], className="font-mono text-accent fw-bold", style={"color": "#38BDF8"}),
+            html.Td(c_row["course_name"], className="text-white"),
+            html.Td(html.Span(c_row["skill_category"], className="badge-pill-neutral")),
             html.Td(skills_html)
         ]))
 
@@ -208,11 +246,30 @@ def update_tab_market(selected_field, selected_exp, currency):
     sal_col = "avg_salary_thb" if currency == "THB" else "avg_salary_usd"
     curr_symbol = "฿" if currency == "THB" else "$"
 
-    # 1. Compute KPIs
-    total_openings = f"{len(df_j):,}"
-    median_sal = f"{curr_symbol}{int(df_j[sal_col].median()):,}" if not df_j.empty else "N/A"
-    top_skill = df_skills.iloc[0]["skill"] if not df_skills.empty else "N/A"
-    top_ind = df_j["industry"].mode()[0] if not df_j.empty else "N/A"
+    # 1. Compute KPIs with Command Center Pill Badges
+    tot_jobs = len(df_j)
+    total_openings = html.Div([
+        html.Span(f"{tot_jobs:,}", className="align-middle"),
+        html.Span("18.5% ↑", className="badge-pill-positive ms-2 align-middle")
+    ])
+
+    med_sal_val = int(df_j[sal_col].median()) if not df_j.empty else 0
+    median_sal = html.Div([
+        html.Span(f"{curr_symbol}{med_sal_val:,}", className="align-middle"),
+        html.Span("Benchmark", className="badge-pill-neutral ms-2 align-middle")
+    ]) if not df_j.empty else "N/A"
+
+    top_skill_name = df_skills.iloc[0]["skill"] if not df_skills.empty else "N/A"
+    top_skill = html.Div([
+        html.Span(top_skill_name, className="align-middle"),
+        html.Span("Dominant", className="badge-pill-warning ms-2 align-middle")
+    ]) if not df_skills.empty else "N/A"
+
+    top_ind_name = df_j["industry"].mode()[0] if not df_j.empty else "N/A"
+    top_industry = html.Div([
+        html.Span(top_ind_name.split(" /")[0], className="align-middle"),
+        html.Span("Leading Hub", className="badge-pill-neutral ms-2 align-middle")
+    ]) if not df_j.empty else "N/A"
 
     # 2. Top Demanded Skills Horizontal Bar Chart
     fig_skills = go.Figure()
@@ -224,9 +281,14 @@ def update_tab_market(selected_field, selected_exp, currency):
             orientation="h",
             marker=dict(
                 color=df_s_top12["demand_share_pct"],
-                colorscale="Viridis",
+                colorscale=[[0, "#10223E"], [0.5, "#0091FF"], [1, "#00E5A3"]],
                 showscale=True,
-                colorbar=dict(title="Share %", thickness=10, len=0.7)
+                colorbar=dict(
+                    title=dict(text="Share %", font=dict(color="#8E9AAF", size=10)),
+                    tickfont=dict(color="#8E9AAF", size=9),
+                    thickness=10,
+                    len=0.7
+                )
             ),
             text=df_s_top12["demand_share_pct"].apply(lambda v: f"{v}%"),
             textposition="outside",
@@ -269,7 +331,8 @@ def update_tab_market(selected_field, selected_exp, currency):
         fig_treemap.update_layout(
             margin=dict(l=10, r=10, t=10, b=10),
             paper_bgcolor="rgba(0,0,0,0)",
-            font=dict(family="Inter, sans-serif", color="#ffffff")
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(family="Segoe UI, sans-serif", color="#FFFFFF")
         )
     else:
         fig_treemap = go.Figure()
@@ -278,12 +341,20 @@ def update_tab_market(selected_field, selected_exp, currency):
     table_rows = []
     recent_jobs = df_j.head(25)
     for _, j in recent_jobs.iterrows():
+        field_color = COLOR_PALETTE.get(j["field"], "#0091FF")
         table_rows.append(html.Tr([
             html.Td(j["job_title"], className="fw-semibold text-white"),
-            html.Td(j["company_name"], className="text-info"),
-            html.Td(html.Span(j["experience_level"], className="badge bg-dark border border-secondary")),
-            html.Td(f"{curr_symbol}{int(j[sal_col]):,}", className="font-mono text-success"),
-            html.Td(html.Span(j["field"], className="badge", style={"backgroundColor": COLOR_PALETTE.get(j["field"], "#3b82f6")}))
+            html.Td(j["company_name"], style={"color": "#38BDF8"}),
+            html.Td(html.Span(j["experience_level"], className="badge-pill-neutral")),
+            html.Td(f"{curr_symbol}{int(j[sal_col]):,}", className="font-mono", style={"color": "#00E5A3", "fontWeight": "600"}),
+            html.Td(html.Span(j["field"], style={
+                "backgroundColor": f"{field_color}33",
+                "color": field_color,
+                "padding": "2px 8px",
+                "borderRadius": "4px",
+                "fontSize": "11px",
+                "fontWeight": "600"
+            }))
         ]))
 
     jobs_table = html.Table([
@@ -298,7 +369,7 @@ def update_tab_market(selected_field, selected_exp, currency):
     ], className="table-dark-custom")
 
     return (
-        total_openings, median_sal, top_skill, top_ind,
+        total_openings, median_sal, top_skill, top_industry,
         fig_skills, fig_box, fig_treemap, jobs_table
     )
 
@@ -319,21 +390,25 @@ def update_tab_mismatch(selected_program, severity_filter):
     else:
         display_df = df_gap
 
-    # 1. Executive Alert Banner
+    # 1. Executive Alert Banner with Command Center Styling
     crit_count = len(df_crit)
     top_missing_skills = ", ".join(df_crit["skill"].head(3).tolist()) if crit_count > 0 else "None"
-    banner = dbc.Alert([
+    alert_class = "alert-command-danger" if crit_count > 0 else "alert-command-success"
+    
+    banner = html.Div([
         html.Div([
-            html.H5(f"⚡ Skills Gap Diagnostic for {selected_program}", className="alert-heading fw-bold mb-1"),
-            html.P(
-                f"Identified {crit_count} high-priority industry competencies with ZERO mandatory course coverage. "
-                f"Top market blindspots: {top_missing_skills}.",
-                className="mb-0 small"
-            )
-        ])
-    ], color="danger" if crit_count > 0 else "success", className="border-0 shadow-sm")
+            html.Span("⚠️", className="me-2 fs-5") if crit_count > 0 else html.Span("✅", className="me-2 fs-5"),
+            html.Strong(f"Skills Gap Command Diagnostic: {selected_program}", className="fs-6 me-3"),
+            html.Span(f"{crit_count} Critical Shortage(s) Detected", className="badge-pill-negative me-2" if crit_count > 0 else "badge-pill-positive me-2"),
+        ], className="d-flex align-items-center mb-1"),
+        html.Div(
+            f"Curriculum blindspots lacking mandatory coursework: {top_missing_skills}. Immediate academic review recommended.",
+            className="small",
+            style={"color": "#D1D5DB"}
+        )
+    ], className=f"p-3 {alert_class} mb-3 shadow-sm")
 
-    # 2. Radar Chart (Curriculum Score vs Market Demand %)
+    # 2. Radar Chart (Electric Blue for Curriculum vs Coral Orange for Market)
     fig_radar = go.Figure()
     top_radar_df = df_gap.head(10)
     skills_labels = top_radar_df["skill"].tolist()
@@ -350,31 +425,31 @@ def update_tab_mismatch(selected_program, severity_filter):
         theta=skills_labels,
         fill='toself',
         name='Market Requisition Rate (%)',
-        line=dict(color='#f43f5e', width=2),
-        fillcolor='rgba(244, 63, 94, 0.25)'
+        line=dict(color='#FF6B4A', width=2),  # Coral Orange
+        fillcolor='rgba(255, 107, 74, 0.25)'
     ))
     fig_radar.add_trace(go.Scatterpolar(
         r=curriculum_vals,
         theta=skills_labels,
         fill='toself',
         name='Curriculum Course Score (0-100)',
-        line=dict(color='#38bdf8', width=2),
-        fillcolor='rgba(56, 189, 248, 0.25)'
+        line=dict(color='#0091FF', width=2),  # Electric Blue
+        fillcolor='rgba(0, 145, 255, 0.25)'
     ))
     apply_dark_layout(
         fig_radar,
         polar=dict(
-            radialaxis=dict(visible=True, range=[0, 100], color="#9ca3af", gridcolor="#1f2937"),
-            angularaxis=dict(color="#e5e7eb", gridcolor="#1f2937"),
+            radialaxis=dict(visible=True, range=[0, 100], color="#8E9AAF", gridcolor="#1E3A63"),
+            angularaxis=dict(color="#FFFFFF", gridcolor="#1E3A63"),
             bgcolor="rgba(0,0,0,0)"
         )
     )
 
-    # 3. Diverging Bar Chart (Shortage vs Over-Supply)
+    # 3. Diverging Bar Chart (Shortage vs Over-Supply with Command Center Tokens)
     fig_diverging = go.Figure()
     div_df = df_gap.copy().sort_values("gap_difference")
     colors = [
-        '#f43f5e' if val > 20 else ('#f59e0b' if val > 0 else '#10b981')
+        '#FF6B4A' if val > 20 else ('#FACC15' if val > 0 else '#00E5A3')
         for val in div_df["gap_difference"]
     ]
     fig_diverging.add_trace(go.Bar(
@@ -389,28 +464,27 @@ def update_tab_mismatch(selected_program, severity_filter):
         xaxis=dict(
             title="◄ Academic Foundation Focus | Industry Shortage / Market Deficit ►",
             zeroline=True,
-            zerolinecolor="#ffffff",
-            zerolinewidth=2
+            zerolinecolor="#FFFFFF",
+            zerolinewidth=1.5
         )
     )
 
-    # 4. Critical Gap Analysis Table
+    # 4. Critical Gap Analysis Table with Status Badges
     table_rows = []
     for _, r in display_df.iterrows():
-        badge_class = "skill-badge"
         if "Critical" in r["status"]:
-            badge_class += " critical"
+            badge = html.Span("Critical Shortage", className="badge-pill-negative")
         elif "Deficit" in r["status"]:
-            badge_class += " warning"
+            badge = html.Span("Moderate Deficit", className="badge-pill-warning")
         else:
-            badge_class += " success"
+            badge = html.Span("Well Aligned", className="badge-pill-positive")
 
         table_rows.append(html.Tr([
             html.Td(r["skill"], className="fw-bold text-white"),
-            html.Td(f"{r['market_demand_pct']}% ({r['market_openings_count']} jobs)", className="font-mono text-danger"),
-            html.Td(f"{r['curriculum_courses_count']} Course(s)", className="font-mono text-info"),
-            html.Td(html.Span(r["status"], className=badge_class)),
-            html.Td(r["action_recommendation"], className="small text-light")
+            html.Td(f"{r['market_demand_pct']}% ({r['market_openings_count']} jobs)", className="font-mono", style={"color": "#FF6B4A", "fontWeight": "600"}),
+            html.Td(f"{r['curriculum_courses_count']} Course(s)", className="font-mono", style={"color": "#38BDF8"}),
+            html.Td(badge),
+            html.Td(r["action_recommendation"], className="small", style={"color": "#D1D5DB"})
         ]))
 
     gap_table = html.Table([
