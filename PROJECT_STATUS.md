@@ -11,8 +11,8 @@
 | Step | Milestone | Description | Status | Commit / Output |
 |:---:|:---|:---|:---:|:---|
 | **1** | **Project Initialization & Scoping** | Parse 2 MD specifications, synthesize project `README.md`, establish git tracking, initialize `PROJECT_STATUS.md`. | ✅ **Completed** | Commit: `docs: initialize project with README and status tracker` |
-| **2** | **Data Architecture & Synthetic Datasets** | Generate `education_data.csv` and `job_market_data.csv` with structured curriculum, employment rates, tuition, job vacancies, and salary brackets. | ⏳ **In Progress** | `data/education_data.csv`, `data/job_market_data.csv`, `data/generate_datasets.py` |
-| **3** | **Interactive Plotly Dash Application** | Build multi-tab Dash platform (`app.py`, `src/`) with reactive callbacks for cross-filtering across Tabs 1, 2, and 3. | ⏳ **Pending** | `app.py`, `src/components/`, `src/callbacks.py`, `assets/custom.css` |
+| **2** | **Data Architecture & Synthetic Datasets** | Generate `education_data.csv` and `job_market_data.csv` with structured curriculum, employment rates, tuition, job vacancies, and salary brackets. | ✅ **Completed** | `data/education_data.csv`, `data/job_market_data.csv`, `data/generate_datasets.py` |
+| **3** | **Interactive Plotly Dash Application** | Build multi-tab Dash platform (`app.py`, `src/`) with reactive callbacks for cross-filtering across Tabs 1, 2, and 3. | ⏳ **In Progress** | `app.py`, `src/components/`, `src/callbacks.py`, `assets/custom.css` |
 | **4** | **Standalone Executive HTML Dashboard** | Single-file HTML (`index.html`) featuring Tailwind CSS, Chart.js, and `contenteditable="true"` dynamic KPI metrics. | ⏳ **Pending** | `index.html` |
 | **5** | **Testing, Verification & Quality Assurance** | Validate cross-filtering callbacks, data schema consistency, headless execution, and responsive UI layout. | ⏳ **Pending** | Verification report in `PROJECT_STATUS.md` and walkthrough |
 
@@ -32,10 +32,12 @@
 ---
 
 ### Step 2: Data Architecture & Synthetic Datasets
-- [ ] Implement `data/generate_datasets.py` to synthesize realistic, statistically sound data matching BRD section 4:
+- [x] Implemented `data/generate_datasets.py` to synthesize realistic, statistically sound data matching BRD section 4:
   - `education_data.csv`: Academic Year (2021-2025), Program Name (AI, Data Science, Statistics), Graduate Count, Tuition Fee (THB/USD), Mandatory Course List, Skill Categories, Employment Rate (Year 1, Year 2, Year 3).
   - `job_market_data.csv`: Job Title, Required Skills, Industry, Company Name, Company Size, Min Salary, Max Salary, Experience Level (Entry, Mid, Senior, Expert), Field (AI, Data Science, Statistics), Posting Date.
-- [ ] Add data loader and preprocessor in `src/data_loader.py`.
+  - `curriculum_courses.csv`: Normalized catalogue of 24 core courses mapped across 3 curricula and skill classifications.
+- [x] Implemented `src/data_loader.py` with multi-dimensional filtering, aggregate counters, and skills gap analysis engine.
+- [x] Validated data integrity and execution via test script.
 
 ---
 
